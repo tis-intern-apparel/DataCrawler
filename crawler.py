@@ -18,7 +18,7 @@ def __get_clothes(app_id,cate_id):
     hidNodes = __getElementListByTagName(resultNode,'Hit')
     result = []
     for cate in hidNodes:
-        name = __getElementByTagName(cate,'Name').childNodes[0].data
+        name = __getElementByTagName(cate,'Name').childNodes[0].data.replace('"','')
         code = __getElementByTagName(cate, 'Code').childNodes[0].data
         price = __getElementByTagName(cate, 'Price').childNodes[0].data
         img = __getElementByTagName(cate, 'Image')
@@ -38,7 +38,7 @@ if __name__ == '__main__':
             data.append(line)
 
     with open('clothes.csv', 'w') as f:
-        f.write('\"cloth_name\",\"cloth_code\",\"price\",\"image_url\",\"2big_type\",\"small_type\"\n')
+        f.write('\"cloth_name\",\"color_code\",\"small_type\",\"price\",\"image_url\",\"big_type\",\"cloth_code\"\n')
         for i,d in enumerate(data):
             if i == 0:
                 continue
@@ -50,5 +50,5 @@ if __name__ == '__main__':
             result = __get_clothes(appid,small_code)
 
             for r in result:
-                f.write('\"'+r['name']+'\",\"'+r['code']+'\",\"'+r['price']+'\",\"'+r['image']+'\",\"'+big_name+'\",\"'+small_name+'\"\n')
+                f.write('\"'+r['name']+'\",\"null\",\"'+small_name+'\",\"'+r['price']+'\",\"'+r['image']+'\",\"'+big_name+'\",\"'+r['code']+'\"\n')
             print('category {0}'.format(i))

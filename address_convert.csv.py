@@ -6,7 +6,7 @@ if __name__ == '__main__':
         data = f.readlines()
 
     with open('personal.csv','w') as f:
-        f.write('\"user_code\",\"user_name\",\"user_pronoun\",\"sex\",\"phone\",\"email\",\"address\",\"age\"\n')
+        f.write('\"point_id\",\"user_name\",\"user_pronoun\",\"sex\",\"phone\",\"email\",\"address\",\"age\"\n')
         for i,d in enumerate(data):
             if i == 0:
                 continue
@@ -19,4 +19,4 @@ if __name__ == '__main__':
             address = d[7] +' '+d[8]+' '+d[9]+' '+d[10]+' '+d[11]
             age = d[12].replace('\n','')
             code = hashlib.md5(name.encode('utf-8')).hexdigest()
-            f.write(code+','+name+','+pronoun+','+sex+','+phone+','+email+','+address+','+age+'\n')
+            f.write('\"'+code+'\",\"'+name+'\",\"'+pronoun+'\",\"'+sex+'\",\"'+phone+'\",\"'+email+'\",\"'+address+'\",\"'+age+'\"\n')
