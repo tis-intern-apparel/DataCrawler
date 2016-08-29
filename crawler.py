@@ -38,7 +38,7 @@ if __name__ == '__main__':
             data.append(line)
 
     with open('clothes.csv', 'w') as f:
-        f.write('name,code,price,image,big_category,small_category\n')
+        f.write('\"cloth_name\",\"cloth_code\",\"price\",\"image_url\",\"2big_type\",\"small_type\"\n')
         for i,d in enumerate(data):
             if i == 0:
                 continue
