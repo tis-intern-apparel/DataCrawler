@@ -18,5 +18,5 @@ if __name__ == '__main__':
             email = d[5]
             address = d[7] +' '+d[8]+' '+d[9]+' '+d[10]+' '+d[11]
             age = d[12].replace('\n','')
-            code = hashlib.md5(name.encode('utf-8')).hexdigest()
+            code = '{0:04d}'.format(i)
             f.write('\"'+code+'\",\"'+name+'\",\"'+pronoun+'\",\"'+sex+'\",\"'+phone+'\",\"'+email+'\",\"'+address+'\",\"'+age+'\"\n')

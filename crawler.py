@@ -17,13 +17,19 @@ def __get_clothes(app_id,cate_id):
     resultNode = root.childNodes[0].childNodes[0]
     hidNodes = __getElementListByTagName(resultNode,'Hit')
     result = []
+
     for cate in hidNodes:
-        name = __getElementByTagName(cate,'Name').childNodes[0].data.replace('"','')
+        name = __getElementByTagName(cate,'Name').childNodes[0].data.replace('"','').replace(',','')
+        describe_child = __getElementByTagName(cate, 'Description').childNodes
+        if len(describe_child) > 0:
+            describe = __getElementByTagName(cate, 'Description').childNodes[0].data.replace('"', '').replace(',','')
+        else:
+            describe = ''
         code = __getElementByTagName(cate, 'Code').childNodes[0].data
         price = __getElementByTagName(cate, 'Price').childNodes[0].data
         img = __getElementByTagName(cate, 'Image')
         img_url = __getElementByTagName(img,'Medium').childNodes[0].data
-        result.append({'name':name,'code':code,'price':price,'image':img_url})
+        result.append({'name':name,'code':code,'price':price,'image':img_url,'describe':describe})
     return result
 
 
@@ -37,8 +43,9 @@ if __name__ == '__main__':
         for line in lines:
             data.append(line)
 
+    id_counter = 0
     with open('clothes.csv', 'w') as f:
-        f.write('\"cloth_name\",\"color_code\",\"small_type\",\"price\",\"image_url\",\"big_type\",\"cloth_code\"\n')
+        f.write('\"cloth_name\",\"color_code\",\"small_type\",\"price\",\"image_url\",\"big_type\",\"cloth_code\",\"cloth_describe\"\n')
         for i,d in enumerate(data):
             if i == 0:
                 continue
@@ -50,5 +57,7 @@ if __name__ == '__main__':
             result = __get_clothes(appid,small_code)
 
             for r in result:
-                f.write('\"'+r['name']+'\",\"null\",\"'+small_name+'\",\"'+r['price']+'\",\"'+r['image']+'\",\"'+big_name+'\",\"'+r['code']+'\"\n')
+                id_str = '{0:04d}'.format(id_counter)
+                f.write('\"'+r['name']+'\",\"null\",\"'+small_name+'\",\"'+r['price']+'\",\"'+r['image']+'\",\"'+big_name+'\",\"'+id_str+'\",\"'+r['describe']+'\"\n')
+                id_counter = id_counter+1
             print('category {0}'.format(i))

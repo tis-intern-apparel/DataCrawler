@@ -20,7 +20,7 @@ if __name__ == '__main__':
         line.append('\"'+str(eval)+'\"')
         result.append(','.join(line))
 
-    with open('cloth_evaluate.csv','w') as f:
+    with open('evaluate.csv','w') as f:
         f.write('\"clothes1\",\"clothes2\",\"clothes3\",\"osyaredo\"\n')
         for i,d in enumerate(result):
             f.write(d+'\n')
